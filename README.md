@@ -128,3 +128,77 @@ backed up by quantitative data. But often we don't question
 the assumptions that the use of that data entails.
 Quantitative data never shows the whole picture. Use it with
 caution.
+
+## What is a Computer?
+
+Our views of computers and software tend to be polarized into
+two camps:
+
+1. The computer is a brain-like machine that controls other
+machines. It derives most of its behavior from
+data—_programs_—that it retrieves from these other machines.
+In this view, hardware is primary, and software is secondary.
+
+2. A program describes a set of possible interactions
+among actors in the world. A computer is the substrate that enables
+programs to run—that is, it enables members of the set of possible
+interactions to be manifest. In this view, the software is primary, and
+hardware secondary.
+
+Taken to extremes, both of these views are dehumanizing and ultimately
+ineffective. Neither does a good job of supporting our understanding
+of what programs are, what it means to run a program on a computer,
+or how we should go about developing a computer system over time.
+
+(A third view is to unify software and hardware into an "appliance".
+Users think of the whole system as a machine with specific, fixed
+behaviors.)
+
+Recently, the second school of thought has prevailed.
+Much effort has been spent in modern software design to hide from the
+user the fact that they are interacting with a machine. The job of
+the software engineer is to abstract away the underlying hardware
+so thoroughly that the software seems to run by magic. But of course,
+it isn't magic. When things go wrong, the user is confronted with
+cryptic error messages or strange behavior, often because some engineer
+forgot to consider a particular failure mode or sequence of interactions.
+As Joel Spolsky put it, "all abstractions leak".
+
+Problems compound when programs interact not with people,
+but with other programs. Humans are generally okay at recovering even from
+errors they don't understand; usually turning the computer off and on again
+is enough to resolve the issue. Programs, however, are usually less tolerant
+of errors and less able to recover. A system composed of such brittle,
+error-intolerant programs is prone to failures that cascade through the system.
+These failures are difficult for human operators to resolve because the
+ultimate cause of the failure is often distant, both in time and in program-space,
+from the symptom.
+
+## The Ideal Computer System
+
+From the programmer's perspective
+
+- permits low-level manipulation of machinery without compromising security
+- enables the creation of convenience wrappers that give the programmer
+  greater leverage without concealing the underlying mechanism.
+- enables computation to be expressed as pure functions where possible.
+
+From the user's perspective
+
+- is reliable
+- is easy to use
+
+## Aspects to Consider When Choosing Among Program Structures
+
+- mean time between failures
+- mean time to recovery
+- maybe other failure metrics (99%ile time to recovery?)
+- debuggability
+- can code be safely reused for interactive debugging/recovery sessions in a production environment?
+- test isolation and reproducibility
+- interface stability: can the interface be extended without breaking clients?
+- coupling
+- cohesion
+- can engineers quickly and accurately answer questions about the software by
+  looking at the code? (TODO: what questions?)
+- security
