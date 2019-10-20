@@ -202,3 +202,57 @@ From the user's perspective
 - can engineers quickly and accurately answer questions about the software by
   looking at the code? (TODO: what questions?)
 - security
+
+## Von Neumann Architectures
+
+While contemplating the ASCII character chart, I was suddenly struck by
+the realization that there is no such thing as inert "data". There are
+only programs.
+
+A huge subset of the ASCII codes represent not printable characters,
+but instructions for a printer. The first 32 codes are not things a layperson
+would consider "characters" in English or other languages by any stretch.
+
+```
+0  null
+1  start of heading
+2  start of text
+3  end of text
+4  end of transmission
+5  enquiry
+6  acknowledge
+7  bell
+8  backspace
+9  horizontal tab
+10 new line
+11 vertical tab
+12 form feed
+13 carriage return
+14 shift out
+15 shift in
+16 data link escape
+17 device control 1
+18 device control 2
+19 device control 3
+20 device control 4
+21 negative acknowledge
+22 synchronous idle
+23 end of transmission block
+24 cancel
+25 end of medium
+26 substitute
+27 escape
+28 file separator
+29 group separator
+30 record separator
+31 unit separator
+```
+
+The fact that these codes come first in the ASCII "language" make the
+purpose of ASCII clear: it is a language for controlling machines that
+deal with text.
+
+Seen from that perspective, the printable characters are no different
+from the non-printable ones. They are instructions that tell a machine
+to print (or store) a character. They are code; maybe not for *our*
+processor, but certainly for someone else's.
