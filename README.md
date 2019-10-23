@@ -283,6 +283,7 @@ Programmers are also users.
   required to fix problems.
 - The lowest level of abstraction is a comfortable place to work.
 - Every single part is simple. Their aggregate is also simple.
+- Names are pronounceable. Humans communicate by talking.
 
 ### Software
 
