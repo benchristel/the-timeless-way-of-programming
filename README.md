@@ -256,3 +256,39 @@ Seen from that perspective, the printable characters are no different
 from the non-printable ones. They are instructions that tell a machine
 to print (or store) a character. They are code; maybe not for *our*
 processor, but certainly for someone else's.
+
+## For Users
+
+If you don't understand why things work when they work, you won't be
+able to fix them when they don't.
+
+Programmers are also users.
+
+## The properties of a nice computer system
+
+- The computer's effects on the other machines it controls are the
+  transparent and predictable consequence of my (the user's) actions.
+- The computer's effects flow smoothly from my desires as a human,
+  not from arbitrary things that the computer "wants" me to do.
+- I can see and understand what the computer is going to do before
+  it does it.
+- When something fails, it fails because of an obvious and natural
+  constraint of the hardware or other resource.
+- Failures are surfaced to the user in an honest and transparent way.
+- Failures have an obvious fix. The "right" fix may be a little more
+  work.
+- The user can work most effectively by interacting with all levels
+  of abstraction in about equal proportions. As a result, users are
+  comfortable dropping down to the lowest level of abstraction when
+  required to fix problems.
+- The lowest level of abstraction is a comfortable place to work.
+- Every single part is simple. Their aggregate is also simple.
+
+### Software
+
+- There are standard UI components that make sense for >90% of
+  cases.
+- The operating system makes it easy for software to use the standard
+  components, but does not require it.
+- GUIs incorporate plain text. Console-type UIs may incorporate graphics.
+- All software has a programmatic interface.
