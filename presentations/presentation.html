@@ -80,6 +80,15 @@
         height: 500px;
       }
 
+      stamp {
+        display: block;
+        color: red;
+        font-family: 'Impact', monospace;
+        transform-origin: center;
+        transform: rotate(-30deg) translate(2em, -2em);
+        font-size: 3em;
+      }
+
     </style>
   </head>
   <body>
@@ -87,55 +96,59 @@
 
 class: center, middle
 
-# The Timeless Way of Programming
+# Simplicity
 
 ???
 
-The title of this talk is "The Timeless Way of Programming"
-
----
-
-class: center, dark
-
-## <br/><br/><br/><br/>programming style
-
-???
-
-The subtitle of this talk is "programming style and
-how to avoid it."
-
----
-
-class: center, dark
-
-## <br/><br/><br/><br/>programming style
-
-## and how to avoid it
+This is a talk in five acts, about how and why to write
+simple programs.
 
 ---
 
 ## Five people
 
 - Christopher Alexander
-- Kent Beck
 - Sandi Metz
 - Katrina Owen
+- Kent Beck
 - Shunryu Suzuki
 
 ???
 
-During my vacation I read stuff by these 5 people. And it
-dawned on me that they were all kind of saying the same
-thing, or related things, about creative work and how it
-goes wrong. This talk hopefully weaves together their
-collective wisdom into a coherent narrative.
+It synthesizes the ideas of these 5 people. There's really
+nothing new in this talk. Just putting existing ideas
+together.
+
+During my vacation I was doing a lot of reading, technical
+and nontechnical. And it dawned on me that all of these
+authors were all kind of saying the same thing, or related
+things, about creative work, how it goes wrong, and how to
+make it go right again. This talk hopefully weaves together
+their collective wisdom into a coherent narrative.
 
 My goal is to pique your interest and hopefully get you to
-read some of these writers for yourself.
+read some of these writers for yourself. I'll also be
+facilitating another refactoring workshop at some point,
+probably within the next month, which uses these ideas as
+well, so stay tuned for that.
 
 ---
 
-## Part One: Failure Modes of Software Design
+## Agenda
+
+- Act One: Failure Modes of Design
+
+- Act Two: Style as Constraint
+
+- Act Three: Generativity
+
+- Act Four: Beginner's Mind
+
+- Act Five: The Timeless Way of Programming
+
+???
+
+## Part One: Failure Modes of Design
 
 ## Part Two: Style
 
@@ -224,13 +237,22 @@ this way of working? What will work feel like?
 
 ---
 
+class: center, middle
+
+## Act One: Failure Modes of Design
+
+---
+
 class: center, middle, big
 
-```go
+```
 if ... {
-
+  do thing 1
 } else {
-
+  do thing 2
+  if ... {
+    do thing 3
+  }
 }
 ```
 
@@ -276,9 +298,12 @@ to add. We weren't about to cave under pressure and just
 hack in the feature. We knew that keeping our code clean
 and refactoring was the only way to keep going fast forever.
 The product owner didn't get that, because he wasn't a
-technical person.
+technical person. But all that rationalization didn't change
+the fact that for this particular feature request, our
+carefully designed code was worse at accommodating the
+feature than the naive code structure the PM was assuming.
 
-But then I started to notice a pattern. On project after
+And I started to notice a pattern. On project after
 project. We'd test-drive and refactor the code, but we
 didn't go fast forever. Features got harder and harder to
 add, and the code just seemed to get worse. On several
@@ -325,10 +350,10 @@ class: center, middle, dark
 
 ???
 
-Sometimes we'd be working on a program that was at its core
-so boring and banal that the programmers felt they had to
-make every piece look a little bit different—just for
-variety.
+Sometimes there were differences of opinion about how best
+to write code, and the programmers retreated into
+their own little silos. Their styles just sat next to
+each other without forming a coherent whole.
 
 ---
 
@@ -339,9 +364,10 @@ class: center, middle, dark
 ???
 
 Frequently, we'd end up with structures where the design
-ideas seemed to be cargo-culted, derived from superstition,
-or from preconceived images of what "good code" was supposed
-to look like.
+ideas weren't bad _per se_, but they didn't make sense in
+context. They seemed to be cargo-culted, derived from
+superstition, or from preconceived images of what "good
+code" was supposed to look like.
 
 ---
 
@@ -351,11 +377,11 @@ class: center, middle, dark
 
 ???
 
-And sometimes our attempts to modularize our programs would
-go astray, as individual classes and files
-ended up as junk drawers that people kept throwing more and
-more stuff into.
-
+Sometimes we'd divide up a monolithic program into lots of
+little modules, but then we'd discover stuff that didn't
+seem to fit the organization scheme, and it would just get
+stuck somewhere random. A few months later we'd
+have a dozen boxes of random junk.
 
 ---
 
@@ -365,6 +391,7 @@ class: dark
 
 - ~~external deadline pressure~~
 - ~~lack of information~~
+- ~~design principles~~
 - ?
 
 ???
@@ -376,492 +403,696 @@ needed to make them. If they had been due to those factors,
 the rewrites should have rescued our code, but they never
 did.
 
-And I eventually had to confront the possibility that I
-might be the source of the problem. There was something
-fundamentally wrong, something unintentionally
-self-destructive, about the way the teams I was on
-approached designing code. Even with ample time and the
-benefit of hindsight, we could not seem to get it right.
+It was also hard to fault the design principles we were
+following. We'd seen these recommended in blog post after
+blog post, book after book. "Write short methods", "model
+your domain with classes", "inject your dependencies".
+These were the principles that expert programmers followed,
+or so we thought.
 
----
-
-class: center, middle, dark
-
-![sad-cowboy.jpg](sad-cowboy.jpg)
-
-???
-
-This thought was painful to me. I wasn't a sloppy, cowboy
-coder, or didn't think I was. I loved software design.
-I poured time and effort into it.
-Software design was the thing that saved me from the
-benighted maze of if statements and for loops that passed
-for code in high school and college. I worshipped gurus
-like Gary Bernhardt and Sandi Metz. I wanted to write code
-like them.
-
----
-
-class: center, middle
-
-# masters
-
-???
-
-And perhaps that was the problem. These people are masters
-of their craft and it is a documented fact that masters
-find it difficult to communicate what they know to
-beginners. So much of their knowledge is implicit,
-intuitive. They try to state the rules that they follow—but
-then, if you actually watch them, they break the rules
-constantly. They can't explain what they know.
-
----
-
-class: center, middle
-
-# teams
-
-???
-
-The other problem is that most programs aren't written by
-masters or beginners. They're written by teams. Teams
-introduce their own dynamics. Processes that work for
-individuals working alone often don't work well for teams.
-For example, in high school I'd write programs with
-functions that were thousands of lines, and it was fine
-because I knew where everything was. No one else had to
-understand the code. But that would never fly in a team
-situation.
-
-The masters I mentioned, Sandi Metz and Gary Bernhardt--they
-don't really work on teams. Sandi Metz is a consultant and
-Gary is self employed making screencasts. It's possible that
-their advice, which works well for them, doesn't scale to
-groups of people.
-
----
-
-class: middle, dark
-
-## &ldquo;That&rsquo;s so complicated.&rdquo;
-
-## &ldquo;That&rsquo;s not the Object-Oriented Way.&rdquo;
-
-## &ldquo;I don&rsquo;t understand this.&rdquo;
-
-## &ldquo;I don&rsquo;t like it.&rdquo;
-
-## &ldquo;Why?&rdquo;
-
-???
-
-And this hypothesis was borne out by the feedback I often
-got from team members. When I proposed design ideas, other
-developers on the team would often say things like
-
-"That's so complicated"
-
-"That's not the OO way"
-
-"I don't understand"
-
-"I don't like it"
-
-"Why?"
-
----
-
-???
-
-In many cases I was able to explain the reasoning behind
-the choices that went into my design. I could convince some
-people. But there were times when I ran into what seemed
-like a fundamental difference of opinion, where my teammate
-and I seemed to be operating under different axioms about
-how the code should be shaped.
+So why didn't our designs work for us? Why did we always
+feel like we were tripping over our own code?
 
 ---
 
 class: middle
 
-```ruby
-print "Hello, world!\n"
-```
+> Those who cannot remember the past are condemned to repeat it.
+
+<cite>George Santayana</cite>
 
 ???
 
-Here's a simplified example that hopefully can adequately
-demonstrate one of my controversial opinions.
-
----
-
-class: middle
-
-```ruby
-def print_line(string)
-  print string + "\n"
-end
-
-print_line "Hello, world!"
-```
-
----
-
-class: middle
-
-```ruby
-def line(string)
-  string + "\n"
-end
-
-print line "Hello, world!"
-```
-
----
-
-This is controversial, if only because every programming
-language in the world defines a `print_line` method but I
-don't know of one that defines a `line` method. I'll come
-back to why I think that is. But if you think this looks
-crazy, and why would you define two separate methods for
-something that could be an indivisible unit... you're not
-alone. Many people I've talked to have objected, not
-to this specific example, because it's made up, but to this
-style, this way of approaching the problem by breaking up
-the solution and exposing the fault line to the user of the
-interface by putting a space between "print" and "line".
-
----
-
-class: center, middle, dark
-
-## A Question of Style
-
-???
-
-And I think this is the fundamental issue. These differences
-of opinion, what amounts to differences of programming
-style among developers on a team.
-
-Why did the codebases get bad?
-
-Style.
-
----
-
-class: center, middle, dark
-
-![](gehry-building.jpg)
-
-???
-
-Sometimes it was an individual developer or a small cadre
-of developers who piled elaborate stylistic elements onto
-their code to show off their virtuosity.
-
----
-
-class: center, middle, dark
-
-![](tract-houses.jpg)
-
-???
-
-Sometimes differences among the programmers drove each into
-their own little silo. Their styles just sat next to
-each other without forming a coherent whole.
-
----
-
-class: center, middle, dark
-
-![](modern-house.jpg)
-
-???
-
-Sometimes a particular style was taken as a proxy for value,
-or adopted out of fear of doing the wrong thing, of seeming
-"unprofessional".
+This is nothing new. We need to learn from the past to
+avoid repeating it.
 
 ---
 
 class: center, middle, dark
 
 .too-tall[
-  ![organized closet](organized.jpg)
+![cover of _A Pattern Language_ by Christopher Alexander](./a-pattern-language.jpg)
 ]
+
 
 ???
 
-Sometimes, the developers dearly wanted a clean codebase;
-organization worthy of a magazine cover.
+The architect Christopher Alexander observed something very
+similar happening in architecture.
+
+He was frustrated by 20th century theories of architecture that felt
+grotesque and inhuman, that produced buildings that did not
+make their inhabitants comfortable and happy, and that
+were generally built with more regard for the architect's
+reputation than for the people who would use them.
+
+In the 70s, he wrote this book, _A Pattern Language_, which
+was an attempt to document what he and the architects he
+worked with knew about how to make buildings that worked
+well for their inhabitants. Everything from how to lay out
+a city block to where to place the entrance of a building
+and how to structure outdoor space to how tall to make the
+windows and how high to make the ceilings. All of this was
+based on buildings that Alexander had designed, or observed
+on his travels around the world, buildings where people were
+comfortable and happy and able to use the space effectively.
+
+Alexander thought that this book would help future
+architects easily pick up everything he'd learned about how
+to make buildings work well.
+
+And this book had a profound influence on the course of
+object-oriented programming. It inspired the GOF patterns
+book.
 
 ---
 
 class: center, middle, dark
 
-![](stuff.jpg)
+.too-tall[
+![cover of the Gang of Four _Design Patterns_ book](design-patterns.jpg)
+]
+
+---
+
+class: middle
+
+> [T]he pattern language was actually encouraging people to be a little bit crazy and to conceive of much more intricate relationships than were necessary. [The buildings] were actually disturbing.
+
+---
+
+class: middle
+
+> [P]eople would show me projects they had done and I began to be more and more amazed to realize that, although [the pattern language] worked, all of these projects basically looked like any other buildings of our time.
+
+---
+
+class: middle
+
+> [T]he people who did these projects thought that the buildings were quite different from any they had designed before, perhaps even outrageously so. But their perception was incredibly wrong; and I began to see this happening over and over again—that even a person who is very enthusiastic about all of this work will still be perfectly capable of making buildings that have this mechanical death-like morphology, even with the intention of producing buildings that are alive.
+
+---
+
+class: middle
+
+> So there is the slightly strange paradox that, after all those years of work, the first three books are essentially complete [. . .] but actually do not accomplish anything. The conceptual structures that are presented are just not deep enough to actually break down the barrier. They actually do not do anything.
+
+<cite>Christopher Alexander</cite>
 
 ???
 
-But their efforts to tidy up just turned their mess into
-a compartmentalized mess. Everything still disorganized, but
-now hidden away in boxes where no one could find it.
+And at least part of Alexander's vision came true. Other
+architects did read the book and were applying the patterns.
+And they'd call him up, and say "look at this thing I built
+with your patterns. It's like nothing else I've ever
+designed. It works so well."
+
+And Alexander would look at these buildings and see that
+the patterns were there but they weren't working together.
+They were just making nonsense, or totally banal structures,
+not working well for the buildings' inhabitants at all.
+
+And he was forced to conclude that this pattern language that
+he'd spent years of his life developing did not work. It
+did not achieve its desired goals.
+
+And ultimately I think Alexander learned the hard way that
+these other, more junior architects simply didn't yet have
+the expertise to approach design the way he approached it.
+He'd communicated his ideas in a way that experts like him
+could understand, but very few people could actually use
+the ideas as they were structured.
 
 ---
 
-class: middle, dark
+class: center, middle, dark
 
-### **style:** _(n)_
+.too-tall[
+![a pattern language](a-pattern-language.jpg)
+]
 
 ???
 
-Up until this point I have not defined what I actually mean
-by "style". There are actually two definitions
+So there's all this evidence from Alexander's work and also
+the experiences of people in our own industry with design
+patterns that there's something deficient about this way of
+looking at design. Somehow it doesn't work. In Act 2 I'm
+going to dig into why that is.
 
 ---
 
-class: middle, dark
+class: center, middle
 
-### **style:** _(n)_ the set of constraints imposed on the design of an artifact that are unrelated to the problems or forces the artifact is supposed to resolve.
+## Act Two: Style as Constraint
 
-### **style:** _(n)_ a constrained solution space, adopted to make adequate solutions easier to find.
+---
 
-### **style:** _(n)_ the formal attributes of a solution devised by a master.
+## The Dreyfus Model of Skill Acquisition
+
+- Novice: Follows rules.
+- Competent: Generalizes recurring patterns from examples.
+- Proficient: Focuses on the most important aspects of a situation. Uses abstract maxims and heuristics to solve problems.
+- Expert: Intuitively responds to situations.
+- Master: Is completely "at one" with the work.
 
 ???
 
-Style is...
+And in 1980, the Dreyfus brothers proposed this model of
+skill acquisition that I think explains Alexander's
+experience. Who has heard of the Dreyfus model of skill
+acquisition?
 
-There's style as applied to the work of non-experts. That's
-a constraint we take on to shrink the solution space we
-have to search when designing. We have to constrain
-ourselves this way because we're not experts. We can't just
-intuitively see the right solution. We have to search for
-it.
+It deals with how people learn at different skill levels,
+from total beginner to master.
 
-Then there's the expert's, the master's style. This isn't
-a constraint assumed by the master when they're working. It
-emerges from the form of the resulting solution. It's
-something we observe after the fact.
+Novices can only follow rules. As they grow in skill,
+they learn more and more complex, conditional rules. The
+rules become more general, more abstract.
+Up through the proficient stage,
+reliance on heuristics, maxims and rules of thumb remains
+important.
 
-To disambiguate these, I'll call them student-style and
-master-style.
+But when you get to the expert stage, things change. Experts
+don't think in terms of rules anymore. They somehow intuitively
+know what the right thing to do is, and often they can't explain
+what they know.
 
----
+I think it's rare for people to have above proficient-level
+programming skill. I'd consider myself a proficient
+programmer, but not an expert.
 
-"-ilities" &rarr; formal properties
-
-!(formal properties) &rarr; !"-ilities"
-
-~~formal properties &rarr; "-ilities"~~
-
-Any first-year logic student knows this isn't a valid
-conclusion. Yet we act as if it's true.
+There's a big gap between proficient and expert.
 
 ---
 
-"beginners need rules"
+class: center, middle
 
-"we observe that the code of masters, which has desirable properties beyond its function, has certain formal properties"
+## The proficient&rarr;expert gap
 
-"since the desirable -ilities correlate with these formal properties in experts' code, maybe the formal properties cause the -ilities"
+???
 
-"beginners should be guided by rules derived from the forms in experts' code"
+The problem that we run into with software design, and the
+problem that Alexander ran into with his pattern language,
+is in how proficient practitioners try to learn from the
+wisdom of experts.
 
-¯\\\_(ツ)\_/¯ Q.E.D.
+The problem is, experts have a lot of knowledge that we'd
+really like to leverage and make accessible to the rest of
+us who are merely proficient. But when you ask experts
+how they do what they do, their responses are, shall we say,
+less than helpful.
+
+---
+
+class: middle
+
+> The sculpture is already complete within the marble block, before I start my work. It is already there, I just have to chisel away the superfluous material.
+
+<cite>Michelangelo</cite>
+
+---
+
+class: center, middle
+
+> I just see the objects.
+
+<cite>Sandi Metz</cite>
+
+---
+
+class: middle
+
+> [M]y attention to the desires of the code can affect how quickly and how well the system finds its desired shape, but the system is riding me much more than I am riding the system.
+
+<cite>Kent Beck</cite>
+
+---
+
+class: center, middle
+
+## How do we learn from experts?
+
+???
+
+And so this problem, how do we learn from experts, is
+difficult to solve but also crucially important. We can
+learn from experts, or we can learn from experience. But
+learning from experience is expensive. Unlike concert
+musicians, we software developers don't have a lot of time
+to practice. We're expected to learn on the job. The
+mistakes we make will affect production systems.
+
+---
+
+## Style
+
+???
+
+The way we currently incorporate
+expert wisdom into our work is by imitating the style of
+experts, copying the forms they produce.
+
+This is because, as we've seen, experts work by intuition.
+They no longer think in rules. They don't have an algorithm
+for what they do. So you can't learn to be an expert by
+following the guidelines that the expert follows. There are
+no such guidelines.
+
+---
+
+maintainable code &rarr; small classes
+
+maintainable code &rarr; high test coverage
+
+maintainable code &rarr; ...
+
+???
+
+Instead, what you can do, is look at programs that are
+written by experts, that work well and are easy to maintain,
+and see what structural properties they share. For example,
+if you look at the code of an expert programmer like, say,
+Gary Bernhardt, you see a lot of small classes, only a few
+short methods in each one. As you look at more programs
+written by experts, you see the same thing.
+
+Okay, you say, so maintainable code implies small classes
+and methods. That's one of the elements of good programming
+style.
+
+You do this for a bunch of other properties of code.
+maintainable code implies high test coverage, dependency
+injection, immutable data, whatever.
+
+So you say, great, if I do all of these things, I'll be
+programming like an expert.
+
+---
+
+class: center, middle
+
+~~small classes && high test coverage && ... &rarr; maintainable code~~
+
+???
+
+But do small methods, high test coverage, etc. imply maintainability?
+Nope! Any first-year logic student will tell you that this
+is not valid reasoning. These characteristics are necessary,
+but not sufficient, for maintainable code.
+
+Given these observations about how maintainable code looks,
+this conclusion does not follow.
+
+Yet we act as if it's true. We cling tightly to these ideas
+of style, because without them, we fear we will drown in
+our own code.
+
+---
+
+class: middle
+
+> [A]s things are, we have so far beset ourselves with rules,
+> and concepts, and ideas of what must be done to make a
+> building or a town alive, that we have become afraid of
+> what will happen naturally, and convinced that we must
+> work within a &ldquo;system&rdquo; and with &ldquo;methods&rdquo;
+> since without them our surroundings will come tumbling
+> down into chaos.
+
+<cite>Christopher Alexander</cite>
+
+---
+
+class: center, middle
+
+## Style is a cargo cult
+
+---
+
+class: center, middle
+
+## ~~Images~~
+
+???
+
+We have in our minds images of what the code of experts
+looks like. But these images do not help us write code
+ourselves. When we try to copy them, our designs are hollow
+simulacra of experts' designs.
+
+---
+
+class: center, middle
+
+## ~~Style~~
+
+---
+
+class: center, middle, dark
+
+![great hall of the Eishin campus](./eishin-hall.jpg)
+
+_&ldquo;essentially a building without style&rdquo;_
+
+???
+
+Christopher Alexander has referred to this as a building
+without style.
+
+The statement may seem strange to us because the building
+clearly has identifiable stylistic motifs.
+
+What he means is that he didn't impose a style on it. His
+clients wanted a building of a certain size, that would
+fit in a particular budget, would be structurally sound,
+and would make the students and faculty happy, that would
+be a pleasant place to be. The design, the apparent style
+of the building, evolved entirely from those constraints.
+
+---
+
+class: center, middle, dark
+
+![judo hall of the Eishin campus](./judo-hall.jpg)
+
+---
+
+class: center, middle, dark
+
+![porch of the Heisey house](./porch.jpg)
 
 ---
 
 ???
 
-That might make you think style is unnecessary. And, in
-theory, perhaps it is. But in practice, it's inescapable.
+Let's go back to these quotes.
+
+Experts often speak almost mystically about their work
+speaking to them or generating itself or revealing itself.
+Kent Beck feels he's just the vehicle for the system to
+"assume its desired shape". Michelangelo sees statues emerging
+from blocks of stone.
+
+I want to entertain, for a moment, the possibility that this
+might be true in a sense. That the information to get to
+step N+1 in an evolving work might be contained in step N of
+the work itself and not in the artist's head. In effect,
+I am saying that there is a shape that code "wants" to be,
+along the same lines as what Kent Beck is saying. Maybe
+all we have to do is find a process that will tell us what
+that shape is.
+
+Our current way of thinking about design is static,
+declarative. We specify or imagine a shape for the system
+and then we go about constructing a system that has that
+shape. Or we imagine a set of static constraints—invariants
+that our design must solve for. And then we attempt to
+create a design that meets all those constraints.
+
+Even when we design and refactor incrementally, we tend to
+imagine the design as approaching some desired end state.
+We have a design in mind and we're refactoring toward that
+goal.
+
+This has, in the past, seemed to me like the only sane way
+of doing things. Refactoring without a goal seemed absurd. I
+now think that this way of thinking is circular: the only
+reason it seemed absurd to refactor without a goal is that I
+only undertook refactoring in pursuit of particular design
+goals.
+
+I propose that we need a new way of thinking, in which the
+design is dynamic, continually evolving, and does not
+approach a specific end state. In this model of the
+development process, refactoring is driven not by the
+programmer's vision of design but by the shape of the
+code as it exists.
 
 ---
 
-Style is a set of constraints. The constraints, in this
-case, are rules that define the software development
-process.
+class: center, middle, dark
 
-Experts don't need rules. They don't think in rules. Their
-style is not a conscious act, not a constraint, but the
-result of intuition. But beginners need rules.
-
----
-
-In other fields, like painting and music and architecture,
-beginners start by imitating the styles of masters. They do
-that until they have enough experience and intuition that
-they can start developing a style of their own.
-
----
-
-The problem is, programming isn't painting. Painters copy
-the masters for practice. We're not practicing. We're
-performing. We're improvising. And, as we've seen, following
-the rules of another's style simply isn't enough to get a
-good result when you're improvising a program with a team.
-
-
----
-
-class: dark
-
-![workflow showing style and backlog as inputs to a process producing form](./style-input.png)
+![soap bubble](soap-bubble.jpg)
 
 ???
 
-In effect, style is one of the inputs (along with our
-backlog of features) that we consider in our programming
-process. The process, given style and a set of requirements,
-produces a program form.
+One can imagine every piece of code as having a "desired"
+shape: the simplest shape possible that accommodates the
+logic and behavior of the code.
 
-We have a style in mind, and we involve the development
-process to project that style onto the requirements, the
-desired behavior of the program.
+The refactoring process reshapes the code incrementally,
+moving it closer and closer to that desired shape without
+changing its behavior.
 
-This concept of style implies that style is in a sense
-"pasted on" or arbitrary. It could be swapped out for any
-other style. Mathematically, we know this to be true because
-all the programming paradigms we work with are
-Turing-complete. You can represent any program in any style
-(which is not to say that you should. I'll come back to
-that.)
+As an analogy, consider a soap bubble. The forces of surface
+tension and air pressure acting on the bubble shape it into
+a sphere. If you created a bubble that was not a sphere,
+its own internal forces would pull it into this shape.
+
+We want to do the same with code: let the code adjust to its
+own desired shape.
+
+But it is not at all clear how to create a process that will
+do this.
 
 ---
 
-- procedural
-  - coroutine-based
-- object-oriented
-  - MVC
-  - Detroit TDD
-  - London TDD
-  - Dependency Injection
-  - Command-Query Responsibility Separation (CQRS)
-  - Domain-Driven Design
-  - attribute-oriented
-  - actors
-- functional
-  - IO monads
-  - functional reactive programming
-  - continuation-passing style
-  - lazy evaluation
+> What [D’Arcy] Thompson insisted on was that every form is basically the end result of a certain growth process. When I first read this I felt that of course the form in a purely static sense is equilibrating certain forces and that you could say that it was even the product of those forces—in a non-temporal, non-dynamic sense, as in the case of a raindrop, for example, which in the right here and now is in equilibrium with the air flow around it, the force of gravity, its velocity, and so forth—but that you did not really have to be interested in how it actually got made. Thompson however was saying that everything is the way it is today because it is the result of a certain history—which of course includes how it got made. But at the time I read this I did not really understand it very well; whereas I now realize that he is completely right.
 
-???
+<cite>Christopher Alexander</cite>
 
-The problem with this approach is that it makes "good style"
-a subjective matter. Some people prefer an object-oriented
-style, some functional, some procedural. People will have
-debates about why one style is better than another, but
-these debates produce no clear winner. Ultimately, the
-choice of style appears to be a matter of opinion.
+---
 
-But it goes beyond that. People's identities, and even the
-identities of whole communities, get caught up in questions
-of style. A threat to one's favored style is a threat to
-one's self-image and prestige, and by proxy a threat to
-one's professional community. Debates about style often get
-heated.
+## Part Three: Generativity
 
-One way of resolving this is to say "well, different styles
-are suited to different problems, and you have to make
-choices in context." But that feels more like a shrug than
-an answer. It doesn't actually help us with the question of
-how to write maintainable programs. We could also try to
-create a "style map" that tells us what style to use to
-solve particular programming problems. In effect, that's
-what frameworks like Ruby on Rails and Spring try to do: say,
-"for this constrained problem space, you can just apply this
-box of tools and get a good result." I'm skeptical. The
-problems we need to solve are always changing; it's hard
-for a framework to evolve fast enough to keep up. And if
-you make a framework general enough to adapt to any problem,
-what you have is a programming language, and we're back to
-square one, left with the question: how should we program?
+(Richard Gabriel quote on generative advice)
 
-Programming is complicated. We often choose the
-wrong approach, even in the context of a particular program;
-I doubt we can do better by trying to generalize across all
-possible programs. In the future, there may be types of
-programs and new programming styles and paradigms that would
-invalidate such a "style map". In addition, I think that
-many programs are best served by a fusion of different
-styles, and the ways that these interact can be very complex
-and dependent on context. Finally, people often
-misunderstand what a style is all about. I've read and
-worked on a good deal of "object-oriented" code that was
-almost all static methods, seemingly arbitrarily split up
-into stateless classes. So merely stating that "X style is
-good for Y problem" is not going to solve the problem of
-people cargo-culting their image of a style, of imposing an
-image from outside. Even if you choose the right paradigm,
-if you start by forcing the style onto the program instead
-of letting it emerge naturally, you won't get a good result.
+---
 
 
 ---
 
-class: dark
-
-![workflow showing style as derived from form](./style-output.png)
-
-???
-
-All this presupposes that style is something you put into the
-process to produce an ultimate form. But I actually don't
-think that's necessarily true. We might imagine a process
-that takes only a backlog of features as inputs and produces
-a style as a result of the form that implements those
-features.
-
-This might sound like a strange thought to have. The only
-reason I'm having it at all is because I read a book about
-archtecture.
-
-Instead, I contend that we need to think of style
-differently. Style is something that you infer by looking at
-the form of a program, but it doesn't determine the form.
-It is descriptive, not prescriptive.
-
-The obvious problem with this workflow is that, without
-style as an input, we have no idea how to program. I mean,
-think about it: if I told you to write a program, but don't
-make it object-oriented or functional or procedural or
-actor-based or reactive or MVC... what the heck would you
-do? Style is the air we breathe; it seems to shape our every
-thought about programming. How can we possibly get away from
-it?
-
-Fortunately, other people have made inroads on exactly this
-problem. One of those people is Christopher Alexander, so
-I'm now going to take a detour to explore what he has to say
-on the matter.
+Our problem is we're trying to play squash like an expert
+by observing that the expert's arm doesn't decelerate when
+they hit the ball and then trying to make our arms do the
+same. We haven't yet learned to follow through.
 
 ---
 
+Is it possible to devise a set of generative rules that will
+work for something as complex as software?
+
+I think the answer, surprisingly, is yes.
+
+---
+
+C.A. is one of the rare masters who can explain what he
+does. I know he is explaining it, and not just fooling
+himself into thinking he's explained it, because he guides
+many of his clients through the process of designing their
+own individual rooms and buildings.
+
+He has many strong and controversial opinions about
+architecture, but the crux of them is not "design buildings
+that look like mine, because I am the best architect," but
+"use the process that I use, because it is able to guide
+total beginners, people who have never thought of being
+architects, to create buildings that work well for them.
+
+---
+
+The details of his process aren't particularly relevant to
+us, because we make programs, not buildings, but one facet
+of his process that should be stressed is that he does not
+impose a style on his buildings. Here is a building he
+designed, the great hall of a high school in Japan. He wrote
+that this is "essentially a building without style."
+
+---
+
+Here's the porch of a house he built in Austin, Texas. This
+was a case where he worked closely with the people who would
+be living in the house, guiding them through the process.
+
+He also calls this "a building without style."
+
+---
+
+So what does this mean, "building without style"? That's
+kind of a strange thing for an architect to say about one
+of their own buildings. Certainly these buildings have
+stylistic elements that could be imitated. We could imagine
+another building that had the same style, the same
+architectural motifs, as this great hall.
+
+But what he means is that he did not impose a style on the
+buildings. The apparent style is the output of the process.
+Everything in these buildings, from the shape of the largest
+rooms down to the smallest ornaments and details, is
+generated by the process.
+
+---
+
+After I read about Alexander's work, I began to wonder what
+a "program without style" would look like? How would the
+code be shaped?
+
+I found my answer in this book, _99 bottles of OOP_, by
+Sandi Metz and Katrina Owen.
+
+---
+
+The book has a fascinating history which speaks volumes about
+the difficulty of communication between experts and nonexperts.
+
+You can hear the authors talk about how the book developed
+on this podcast, but I'll summarize here.
+
+https://whyarecomputers.com/3
+
+---
+
+In (2012?) Katrina was the founder of exercism.io, a website
+where people can submit answers to coding challenges and
+get feedback from mentors. Sandi was a consultant who flew
+from city to city teaching people how to write better code.
+
+There was one particular problem on Exercism that bothered
+Katrina. It was the 99 bottles of beer problem. The
+challenge was to write a program that printed out the lyrics
+to the 99 bottles of beer song with minimal code
+duplication. The thing that bothered Katrina about this
+problem was that none of the students on Exercism seemed to
+be able to come up with a really clean solution. Every
+student seemed to "sweep something under the rug", there was
+always some detail that didn't fit into the structure of the
+rest of the code and had to be duct-taped on as a special
+case. Katrina began to suspect that maybe there was no clean
+solution to this deceptively simple problem, that it was
+somehow outside the realm of what object-oriented
+programming could handle.
+
+Then, one day, Sandi Metz submitted a solution. Actually,
+she submitted three. Each one had a comment at the top
+explaining the tradeoffs she made and when you might prefer
+this solution over the others. All three beautifully and
+cleanly solved the problem.
+
+Katrina was amazed. "no one ever submits more than one solution!"
+She wanted to know how Sandi did it.
+
+And Sandi didn't have an answer that satisfied her. "I look
+at the code, and I just see the objects. Don't you?"
+
+Intuition.
+
+But Katrina persisted. She really wanted to know exactly
+what Sandi was doing when she solved this problem. And,
+after much back and forth, Katrina convinced Sandi to write
+a book. They were going to write it together. It would be
+called _99 Bottles of object oriented programming_. And it
+would teach all of those students who had submitted suboptimal
+solutions to the 99 bottles problem exactly how Sandi Metz
+writes code.
+
+And so they worked together, working and reworking solutions
+to this problem. Since they were aiming the book at beginners,
+they needed rules. Concrete rules beginners could follow.
+So Katrina kept asking Sandi what her rules were, and of
+course, Sandi, being the expert, couldn't really give her
+a solid answer. They tried a bunch of rules. It seemed
+like every rule they came up with had exceptions. Gradually,
+they refined the rules, over many iterations of solving the
+problem. Finally, they got to a point where they could pretty
+much solve the entire 99 bottles problem just by following
+the rules they'd developed. No magical intuition required.
+
+---
+
+## The Flocking Rules
+
+1. Find the things that are most alike.
+2. Select the smallest difference between them.
+3. Make the smallest change that will remove that difference.
+
+---
+
+class: center, middle
+
+## Part Four: Beginner's Mind
+
+---
+
+class: center, middle
+
+## The Blank Page
+
 ???
 
-Christopher Alexander is a fascinating figure. He's an
-architect (of buildings) and he has written extensively
-about his philosophy of architecture, but he is unique in
-that he's been engaged in dialogue with software engineering
-communities for decades. His breakout work, A Pattern
-Language, inspired the Gang of Four patterns book. The
-companion volume to A Pattern Language, is this book, The
-Timeless Way of Building, which is more abstract and
-philosophical. Kent Beck references this book in Extreme
-Programming Explained, 2nd Ed. Alexander wrote the foreword
-to Richard Gabriel's book, Patterns of Software: Tales from
-the Software Community, which was itself inspired by
-Alexander's work. In Alexander's magnum opus, The Nature of
-Order, he cites XP and describes how his ideas are currently
-being applied to software.
+There is a missing piece to the rules that Sandi and Katrina
+developed. The missing piece is what do you do if you don't
+have any code yet?
 
-I'm looping the works of Christopher Alexander into this
-talk because he's written a lot about style and the role of
-the architect in the building process.
+When we're starting a project or even a new feature for an
+existing project, we have to confront the problem of the
+blank page. And when we have nothing, it is very hard to
+avoid imposing a style on our code. We start programming
+from an assumption of paradigm: OO, FP, MVC, reactive,
+concurrent, or whatever else. Often the very first decision
+we make on our project is to choose a framework, and often
+these frameworks limit us to a particular view.
+
+---
+
+class: center, middle
+
+## shameless green
+
+???
+
+Sandi and Katrina assume that your refactoring process
+starts from something they call "shameless green". The
+tests pass but the code makes no assumptions about future
+requirements.
+
+---
+
+class: center, middle
+
+## no abstractions
+
+???
+
+Specifically, what this means is that the code has no
+abstractions. The only classes and methods that exist are
+those that are absolutely required to be there for some
+technical reason.
+
+Generally, this means that the code is imperative,
+procedural.
+
+---
+
+class: center, middle
+
+## writing like a beginner
+
+???
+
+What's intriguing to me about this is that it very closely
+mirrors how I wrote programs when I was just starting out.
+To write shameless green code means writing like a beginner.
+
+---
+
+> In the beginner's mind there is no thought "I have attained something." All self-centered thoughts limit our vast mind. When we have no thought of achievement, no thought of self, we are true beginners. Then we can really learn something.
+
+<cite>Shunryu Suzuki, _Zen Mind, Beginner's Mind_</cite>
+
+???
+
+And in particular it means letting go of any egoistic desire
+to impose a form on our program.
 
 ---
 
@@ -1090,6 +1321,46 @@ Source: https://whyarecomputers.com/3
 
 Simplicity, as Alexander defines it, is the absence of
 arbitrary distinctions, and therefore the opposite of style.
+
+---
+
+## Act Five: The Timeless Way of Programming
+
+---
+
+> In our time, many of us have been taught to strive for an insane perfection that means nothing. To get wholeness, you must try instead to strive for this kind of perfection, where things that don’t matter are left rough and unimportant, and the things that really matter are given deep attention. This is a perfection that seems imperfect. But it is a far deeper thing.
+
+<cite>Christopher Alexander</cite>
+
+---
+
+## shallow hierarchies
+
+---
+
+## symmetry
+
+---
+
+## multiple paradigms
+
+---
+
+```ruby
+download_class =
+  case uri.scheme
+  when "ssh"
+    GitDownload
+  when "https"
+    HttpsDownload
+  when "sftp"
+    SftpDownload
+  end
+```
+
+---
+
+## shallow mess
 
 ---
 
