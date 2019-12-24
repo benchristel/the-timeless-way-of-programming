@@ -81,6 +81,20 @@
         height: 500px;
       }
 
+      .small img {
+        max-height: 200px;
+      }
+
+      .float-left img {
+        float: left;
+        margin-right: 1em;
+      }
+
+      .smaller-font li,
+      .smaller-font p {
+        font-size: 1.5rem;
+      }
+
       stamp {
         display: block;
         color: red;
@@ -106,17 +120,16 @@ simple programs.
 
 ---
 
-## Five people
+## Four people
 
 - Christopher Alexander
 - Sandi Metz
 - Katrina Owen
 - Kent Beck
-- Shunryu Suzuki
 
 ???
 
-It synthesizes the ideas of these 5 people. There's really
+It synthesizes the ideas of these 4 people. There's really
 nothing new in this talk. Just putting existing ideas
 together.
 
@@ -141,9 +154,9 @@ well, so stay tuned for that.
 
 - Act Two: Style as a Simulacrum of Mastery
 
-- Act Three: Generativity
+- Act Three: Generative Rules
 
-- Act Four: Beginner's Mind
+- Act Four: Beginning Well
 
 - Act Five: The Timeless Way of Programming
 
@@ -162,7 +175,7 @@ well, so stay tuned for that.
     - Kent Beck "the system is riding me"
     - C.A. "essentially a building without style"
 
-## Part Three: Generativity
+## Part Three: Generative Rules
 
 - Bridging the Master-Beginner Gap
   - Christopher Alexander: The Fundamental Process
@@ -222,7 +235,7 @@ mastery.
 
 In part three I'm going to talk about approaches that have
 actually succeeded at communicating between masters and
-beginners. These approaches all have the common thread of
+beginners. These approaches have the common thread of
 generativity. They define rules that generate the desired
 outcome indirectly, rather than specifying it upfront.
 
@@ -247,13 +260,10 @@ class: center, middle
 class: center, middle, big
 
 ```
-if ... {
+if (a condition) {
   do thing 1
 } else {
   do thing 2
-  if ... {
-    do thing 3
-  }
 }
 ```
 
@@ -335,7 +345,7 @@ The problems manifested in all sorts of forms.
 
 class: center, middle, dark
 
-![A building by Frank Gehry in Prague](./gehry-building.jpg)
+![A building by I.M. Pei](./i-m-pei.jpg)
 
 ???
 
@@ -424,8 +434,12 @@ class: middle
 
 ???
 
-This is nothing new. We need to learn from the past to
-avoid repeating it.
+The problems we felt are not new. They're not even unique
+to programming.
+
+The architect Christopher Alexander observed something very
+similar happening with the architectural patterns and
+design principles he developed.
 
 ---
 
@@ -438,23 +452,32 @@ class: center, middle, dark
 
 ???
 
-The architect Christopher Alexander observed something very
-similar happening in architecture.
+But before we dive into that, some background on Alexander,
+since he's a fascinating figure who I'm going to reference
+multiple times in this talk.
 
-He was frustrated by 20th century theories of architecture that felt
-grotesque and inhuman, that produced buildings that did not
-make their inhabitants comfortable and happy, and that
-were generally built with more regard for the architect's
-reputation than for the people who would use them.
+Alexander has spent most of his career in a prolonged
+reaction against the dominant, 20th century Western theories
+of architecture.
+
+As a young man, he saw a growing modernist movement
+producing architecture that felt grotesque and inhuman;
+buildings that did not make their inhabitants comfortable
+and happy, that were built with more regard
+for the architect's reputation than for the people who were
+going to use them.
+
+So he set about creating a body of design principles and
+techniques that anyone could use to create truly
+human-centered buildings and cities.
 
 In the 70s, he wrote this book, _A Pattern Language_, which
-was an attempt to document what he and the architects he
-worked with knew about how to make buildings that worked
-well for their inhabitants. Everything from how to lay out
+was an attempt to document what he'd learned about how to
+make such buildings. Everything from how to lay out
 a city block to where to place the entrance of a building
 and how to structure outdoor space to how tall to make the
 windows and how high to make the ceilings. All of this was
-based on buildings that Alexander had designed, or observed
+based on buildings that Alexander had observed
 on his travels around the world, buildings where people were
 comfortable and happy and able to use the space effectively.
 
@@ -462,9 +485,10 @@ Alexander thought that this book would help future
 architects easily pick up everything he'd learned about how
 to make buildings work well.
 
-And this book had a profound influence on the course of
-object-oriented programming. It inspired the GOF patterns
-book.
+And, by most measures, the book was a huge success. It had a
+profound influence not only on architecture schools but on
+the course of object-oriented programming. It inspired the
+GOF patterns book.
 
 ---
 
@@ -473,6 +497,18 @@ class: center, middle, dark
 .too-tall[
 ![cover of the Gang of Four _Design Patterns_ book](design-patterns.jpg)
 ]
+
+---
+
+class: center, middle
+
+## problem
+
+???
+
+But there was a problem. Other architects did indeed start
+using the patterns, as Alexander had hoped. But Alexander
+wasn't exactly thrilled by their creations.
 
 ---
 
@@ -522,7 +558,7 @@ these other, more junior architects simply didn't yet have
 the expertise to approach design the way he approached it.
 He'd communicated his ideas in a way that experts like him
 could understand, but very few people could actually use
-the ideas as they were structured.
+the ideas as he'd presented them.
 
 ---
 
@@ -645,6 +681,8 @@ mistakes we make will affect production systems.
 
 ---
 
+class: center, middle
+
 ## Style
 
 ???
@@ -660,6 +698,8 @@ following the guidelines that the expert follows. There are
 no such guidelines.
 
 ---
+
+class: middle
 
 maintainable code &rarr; small classes
 
@@ -747,6 +787,14 @@ class: center, middle
 
 ## ~~Style~~
 
+???
+
+But if we don't use a particular style, what *do* we have?
+How are we supposed to decide how to write code?
+
+In order to approach an answer to this question, I want to
+turn again to Christopher Alexander's work.
+
 ---
 
 class: center, middle, dark
@@ -757,6 +805,9 @@ _&ldquo;essentially a building without style&rdquo;_
 
 ???
 
+This is the great hall of a high school campus that
+Alexander built in Japan.
+
 Christopher Alexander has referred to this as a building
 without style.
 
@@ -764,11 +815,11 @@ The statement may seem strange to us because the building
 clearly has identifiable stylistic motifs.
 
 What he means is that he didn't impose a style on it. His
-clients wanted a building of a certain size, that would
-fit in a particular budget, would be structurally sound,
-and would make the students and faculty happy, that would
-be a pleasant place to be. The design, the apparent style
-of the building, evolved entirely from those constraints.
+clients didn't start with a preconceived style in mind. They
+wanted a building that would stand up and be maintainable
+and make their students and faculty happy without being too
+expensive. And that's what they got. The apparent style of
+the building is the result of solving for those constraints.
 
 ---
 
@@ -776,17 +827,63 @@ class: center, middle, dark
 
 ![judo hall of the Eishin campus](./judo-hall.jpg)
 
+???
+
+This is a different building on the same campus, the judo
+hall.
+
 ---
 
 class: center, middle, dark
 
 ![porch of the Heisey house](./porch.jpg)
 
+???
+
+And this is the interior of a sunroom-like porch that
+Alexander built for a client in Austin, Texas. Again,
+Alexander refers to this as a building without style.
+In this case, Alexander guided the client through the
+process of designing their own house and living space.
+He calls this a "user-designed" house (http://www.patternlanguage.com/gallery/houses.html).
+
 ---
+
+class: center, middle
+
+## Where does the apparent style of these buildings come from?
 
 ???
 
-Let's go back to these quotes.
+So Christopher Alexander, if we take him at his word, has
+been able somehow to escape the conscious use of style in
+his work. Yet these buildings have recognizable
+architectural motifs. They are self-consistent. They're not
+bland. They seem to have a style, even if Alexander is not
+constraining them to fit that style. So where does that
+style come from?
+
+---
+
+class: middle
+
+> ...the system finds its desired shape...
+
+<cite>Kent Beck</cite>
+
+> The sculpture is already complete within the marble block.
+
+<cite>Michelangelo</cite>
+
+???
+
+I'd say that the statement about buildings without style is
+in the same vein as these quotes that we saw earlier. In
+other words, it's a statement made by an expert, a master
+of his craft, who sees the work shaping itself under his
+effort, unfolding as if by its own volition.
+
+There's a pattern here.
 
 Experts often speak almost mystically about their work
 speaking to them or generating itself or revealing itself.
@@ -794,40 +891,35 @@ Kent Beck feels he's just the vehicle for the system to
 "assume its desired shape". Michelangelo sees statues emerging
 from blocks of stone.
 
-I want to entertain, for a moment, the possibility that this
-might be true in a sense. That the information to get to
-step N+1 in an evolving work might be contained in step N of
-the work itself and not in the artist's head. In effect,
-I am saying that there is a shape that code "wants" to be,
-along the same lines as what Kent Beck is saying. Maybe
-all we have to do is find a process that will tell us what
-that shape is.
+---
 
-Our current way of thinking about design is static,
-declarative. We specify or imagine a shape for the system
-and then we go about constructing a system that has that
-shape. Or we imagine a set of static constraints—invariants
-that our design must solve for. And then we attempt to
-create a design that meets all those constraints.
+class: center, middle
 
-Even when we design and refactor incrementally, we tend to
-imagine the design as approaching some desired end state.
-We have a design in mind and we're refactoring toward that
-goal.
+_System<sub>n</sub> &rarr; System<sub>n+1</sub>_
 
-This has, in the past, seemed to me like the only sane way
-of doing things. Refactoring without a goal seemed absurd. I
-now think that this way of thinking is circular: the only
-reason it seemed absurd to refactor without a goal is that I
-only undertook refactoring in pursuit of particular design
-goals.
+???
 
-I propose that we need a new way of thinking, in which the
-design is dynamic, continually evolving, and does not
-approach a specific end state. In this model of the
-development process, refactoring is driven not by the
-programmer's vision of design but by the shape of the
-code as it exists.
+Because this pattern of experts thinking this way is so
+consistent, I want to entertain, for a moment, the
+possibility that this might be true in a sense. That the
+information to get to step N+1 in an evolving work might be
+contained in step N of the work itself and not in the
+artist's head, and that, if allowed to evolve under its own
+motive power, the system will converge on a particular
+shape.
+
+This is very different from the way we currently design
+code. Even when we design and refactor incrementally, we
+tend to imagine the design as approaching some desired end
+state. We have a design in mind and we're refactoring toward
+that goal.
+
+But that type of goal-oriented refactoring inherently
+imposes an external image of what the code should look like,
+which may be at odds with its functionality in subtle ways
+that are hard to see in advance. By trying to impose that
+image, we can actually damage the code's coherence and
+simplicity.
 
 ---
 
@@ -847,101 +939,100 @@ changing its behavior.
 
 As an analogy, consider a soap bubble. The forces of surface
 tension and air pressure acting on the bubble shape it into
-a sphere. If you created a bubble that was not a sphere,
-its own internal forces would pull it into this shape.
+a sphere. If you magically, and all at once, created a
+bubble that was some other shape, say a cube, it wouldn't
+last: its own internal forces would either destroy it, or
+pull it into a spherical shape.
+
+But there is no law of physics that says a soap bubble must
+be round. The roundness of a bubble is an emergent property
+of other physical laws dealing with surface tension and the
+behavior of gases. And indeed, we can find soap bubbles that
+aren't round. If the air pressure around the bubble isn't
+uniform, it may have an irregular shape, or a dynamically
+changing one.
 
 We want to do the same with code: let the code adjust to its
-own desired shape.
+own desired shape, according to the important forces acting
+on it, without adding any undue constraints of our own.
 
-But it is not at all clear how to create a process that will
-do this.
+The reason we want to do this is because the shape of the
+code is actually the least important aspect of the system.
+It comes after everything else: functionality,
+maintainability, performance, fault-tolerance, testability,
+security, and so on. If code has all of those things, it
+doesn't matter what shape it is.
+
+So the secret is this: leave the shape of the code
+unspecified, unconstrained, while applying forces that
+adjust the functional and nonfunctional aspects of the
+code toward their desired states. Whatever shape it ends up
+in is a good shape.
+
+When we do this, the shape of the code becomes an emergent
+property. We know that whatever rules we formulate for
+shaping code must not actually specify its shape. Such rules
+couldn't adapt to the infinite variety of possible programs
+without being infinitely complex.
+
+The term for such rules is _generative_.
 
 ---
 
-> What [D’Arcy] Thompson insisted on was that every form is basically the end result of a certain growth process. When I first read this I felt that of course the form in a purely static sense is equilibrating certain forces and that you could say that it was even the product of those forces—in a non-temporal, non-dynamic sense, as in the case of a raindrop, for example, which in the right here and now is in equilibrium with the air flow around it, the force of gravity, its velocity, and so forth—but that you did not really have to be interested in how it actually got made. Thompson however was saying that everything is the way it is today because it is the result of a certain history—which of course includes how it got made. But at the time I read this I did not really understand it very well; whereas I now realize that he is completely right.
+class: center, middle
 
-<cite>Christopher Alexander</cite>
-
----
-
-## Part Three: Generativity
-
-(Richard Gabriel quote on generative advice)
+## Act Three: Generative Rules
 
 ---
 
+class: middle
+
+> When I play squash and mis-hit or misdirect the ball, I chant, “follow through, follow through, you idiot.”<br/><br/>The law of follow-through is hard to forget - it’s a law, though, that makes little sense: where is its enchantment? How can advice about what to do after you hit a ball make any difference to what happens when you hit it, or before?
 
 ---
+
+class: middle
+
+> When you follow through, your arm is aiming at a point well beyond where the racket will contact the ball, so there is no deceleration. “Don’t decelerate, don’t decelerate, you idiot!” It might make a mantra worth repeating, but it isn’t advice you can take.
+
+---
+
+class: middle
+
+> [The follow-through] mantra generates the effect we want - just as a seed generates the flower which eventually blossoms. Just as the wind in the sand generates dune designs and sidewinding sinews and ripples of grains of sand.
+
+<cite>Richard Gabriel</cite>
+
+---
+
+class: center, middle
+
+## follow-through
+
+???
 
 Our problem is we're trying to play squash like an expert
 by observing that the expert's arm doesn't decelerate when
 they hit the ball and then trying to make our arms do the
 same. We haven't yet learned to follow through.
 
----
-
 Is it possible to devise a set of generative rules that will
 work for something as complex as software?
 
 I think the answer, surprisingly, is yes.
 
----
-
-C.A. is one of the rare masters who can explain what he
-does. I know he is explaining it, and not just fooling
-himself into thinking he's explained it, because he guides
-many of his clients through the process of designing their
-own individual rooms and buildings.
-
-He has many strong and controversial opinions about
-architecture, but the crux of them is not "design buildings
-that look like mine, because I am the best architect," but
-"use the process that I use, because it is able to guide
-total beginners, people who have never thought of being
-architects, to create buildings that work well for them.
-
----
-
-The details of his process aren't particularly relevant to
-us, because we make programs, not buildings, but one facet
-of his process that should be stressed is that he does not
-impose a style on his buildings. Here is a building he
-designed, the great hall of a high school in Japan. He wrote
-that this is "essentially a building without style."
-
----
-
-Here's the porch of a house he built in Austin, Texas. This
-was a case where he worked closely with the people who would
-be living in the house, guiding them through the process.
-
-He also calls this "a building without style."
-
----
-
-So what does this mean, "building without style"? That's
-kind of a strange thing for an architect to say about one
-of their own buildings. Certainly these buildings have
-stylistic elements that could be imitated. We could imagine
-another building that had the same style, the same
-architectural motifs, as this great hall.
-
-But what he means is that he did not impose a style on the
-buildings. The apparent style is the output of the process.
-Everything in these buildings, from the shape of the largest
-rooms down to the smallest ornaments and details, is
-generated by the process.
-
----
-
-After I read about Alexander's work, I began to wonder what
-a "program without style" would look like? How would the
-code be shaped?
-
 I found my answer in this book, _99 bottles of OOP_, by
 Sandi Metz and Katrina Owen.
 
 ---
+
+class: center, middle
+
+.too-tall[
+![cover of _99 Bottles of OOP_ by Sandi Metz and Katrina Owen](99-bottles-of-oop.jpg)
+]
+
+???
 
 The book has a fascinating history which speaks volumes about
 the difficulty of communication between experts and nonexperts.
@@ -951,12 +1042,31 @@ on this podcast, but I'll summarize here.
 
 https://whyarecomputers.com/3
 
----
-
 In (2012?) Katrina was the founder of exercism.io, a website
 where people can submit answers to coding challenges and
 get feedback from mentors. Sandi was a consultant who flew
 from city to city teaching people how to write better code.
+
+---
+
+class: middle
+
+```
+99 bottles of beer on the wall, 99 bottles of beer.
+Take one down, pass it around, 98 bottles of beer on the wall.
+
+98 bottles...
+
+...
+
+1 bottle of beer on the wall, 1 bottle of beer.
+Take it down, pass it around, no more bottles of beer on the wall.
+
+No more bottles of beer on the wall, no more bottles of beer.
+Go to the store and buy some more, 99 bottles of beer on the wall.
+```
+
+???
 
 There was one particular problem on Exercism that bothered
 Katrina. It was the 99 bottles of beer problem. The
@@ -968,7 +1078,21 @@ be able to come up with a really clean solution. Every
 student seemed to "sweep something under the rug", there was
 always some detail that didn't fit into the structure of the
 rest of the code and had to be duct-taped on as a special
-case. Katrina began to suspect that maybe there was no clean
+case.
+
+---
+
+class: middle
+
+> I personally thought that maybe there was no good solution to this problem.
+
+<cite>Katrina Owen</cite>
+
+???
+
+Source: https://whyarecomputers.com/3
+
+Katrina began to suspect that maybe there was no clean
 solution to this deceptively simple problem, that it was
 somehow outside the realm of what object-oriented
 programming could handle.
@@ -1016,32 +1140,92 @@ the rules they'd developed. No magical intuition required.
 2. Select the smallest difference between them.
 3. Make the smallest change that will remove that difference.
 
+???
+
+As an example of a generative rule from the book, here is
+a sequence for removing duplication from code.
+
+Metz and Owen call these "flocking rules" after the
+generative rules that birds and fish use to move in an
+apparently coordinated way without colliding.
+
+I tried out these rules on some thorny code and was
+amazed by the results I got. The code came out much cleaner
+than I could have imagined when looking at its initial
+state.
+
 ---
 
 class: center, middle
 
-## Part Four: Beginner's Mind
+## Part Four: Beginning Well
 
 ---
 
 class: center, middle
 
-## The Blank Page
+_System<sub>n</sub> &rarr; System<sub>n+1</sub>_
 
 ???
 
-There is a missing piece to the rules that Sandi and Katrina
-developed. The missing piece is what do you do if you don't
-have any code yet?
+There is a danger introduced by generative rules.
 
-When we're starting a project or even a new feature for an
-existing project, we have to confront the problem of the
-blank page. And when we have nothing, it is very hard to
-avoid imposing a style on our code. We start programming
-from an assumption of paradigm: OO, FP, MVC, reactive,
-concurrent, or whatever else. Often the very first decision
-we make on our project is to choose a framework, and often
-these frameworks limit us to a particular view.
+The rules are not really creative. They merely evolve what
+is already present to its logical conclusion. Their output
+is a function of the initial state.
+
+That implies that getting the initial state right is of
+utmost importance for the rules to work well. So what does
+that initial state look like? What's system 0?
+
+---
+
+class: center, middle
+
+_System<sub>0</sub>_
+
+???
+
+If we're not
+careful in describing how this initial state must look, we
+might discover that finding a good initial state for our
+programs is just as intractable as designing the whole
+end-state up front.
+
+If you've ever tried to refactor a program that was sliced
+up into tiny little methods and classes, with abstraction
+boundaries in all the wrong places, you know how hard it is
+to refactor code away from certain shapes.
+
+On the other hand, you may have had experiences with code
+that was undoubtedly a mess, but wasn't too hard to refactor
+into something better. That's the kind of code we want to
+use as input to our generative rules. We want to put as
+little creative effort as possible into the initial state,
+leaving the generative rules to do the heavy lifting.
+
+---
+
+## Well-begun code...
+
+- is correct (as far as the tests can tell us)
+- expresses a complete feature
+- has no new abstractions
+
+???
+
+"expresses a complete feature" the important thing
+here is that the feature we're working on is "done" and we
+aren't about to gain new information about the requirements
+on the code. The TDD cycle of red-green-refactor encourages
+us to refactor whenever the tests pass. But if we do that,
+sometimes the designs that unfold from refactoring are
+invalidated by the very next test we write. In such a case,
+it would have been better to wait for that next test, and
+the information it gives us about the forces shaping the
+code, before we start to refactor anything. Sandi Metz and
+Katrina Owen discuss this at length in _99 bottles_, so I
+won't dwell on it here.
 
 ---
 
@@ -1051,10 +1235,9 @@ class: center, middle
 
 ???
 
-Sandi and Katrina assume that your refactoring process
-starts from something they call "shameless green". The
-tests pass but the code makes no assumptions about future
-requirements.
+Sandi and Katrina call this type of code "shameless green"
+because the tests pass but it's a little embarrassing; you
+wouldn't want to push it to master for sure.
 
 ---
 
@@ -1076,164 +1259,30 @@ procedural.
 
 class: center, middle
 
-## writing like a beginner
-
-???
-
-What's intriguing to me about this is that it very closely
-mirrors how I wrote programs when I was just starting out.
-To write shameless green code means writing like a beginner.
-
----
-
-> In the beginner's mind there is no thought "I have attained something." All self-centered thoughts limit our vast mind. When we have no thought of achievement, no thought of self, we are true beginners. Then we can really learn something.
-
-<cite>Shunryu Suzuki, _Zen Mind, Beginner's Mind_</cite>
-
-???
-
-And in particular it means letting go of any egoistic desire
-to impose a form on our program.
-
----
-
-class: center, dark
-
-![The Eishin Great Hall](./eishin-hall.jpg)
-
-_&ldquo;essentially a building without style.&rdquo;_
-
-???
-
-In his book The Nature of Order, Christopher Alexander
-called this, the main hall of a high school campus he built
-in Japan, "essentially a building without style", which is
-kind of a strange thing for an architect to say about one of
-his own buildings. Clearly we can see some stylistic
-elements of this building and imagine applying them to some
-other structure. But I think that's not what Alexander
-meant. I think what he meant is that style was not a
-constraint of the process used to create this building. His
-clients didn't start with a preconceived style in mind. They
-wanted a building that would stand up and be maintainable
-and make their students and faculty happy without being too
-expensive. And that's what they got. The apparent style of
-the building is the result of solving for those constraints.
-
----
-
-class: dark, center, middle
-
-![Porch of the Heisey House](./porch.jpg)
-
-???
-
-Here's another building by Alexander. The interior of a porch
-he built for a home in Austin, Texas. Again, he calls this
-a building without style.
-
----
-
-class: center, middle
-
-## The Texture of Mastery
-
-???
-
----
-
-class: middle
-
-> My vision can shape initial direction, and my attention to the desires of the code can affect how quickly and how well the system finds its desired shape, but the system is riding me much more than I am riding the system.
-
-<cite>Kent Beck</cite>
-
----
-
-class: center, middle
-
-# Beginner&rsquo;s Mind
-
-### _The Escape from Style_
-
-???
-
-There are only four things you need to know in order to
-program. Anyone want to guess what they are?
-
----
-
-- Variables
-- Conditionals
-- Loops (or GOTOs)
-- Print statements
-
-???
-
-Print Statements =~ some way to affect the world. The first
-three items give you Turing-completeness; the fourth lets
-you actually do stuff.
-
----
-
-???
-
-I programmed in Visual Basic for 10 years, primarily making
-games for myself and my friends. I only knew about
-variables, ifs, loops, and a UI library. The only data types
-I knew about were the built-in primitive types, which
-included fixed-length arrays. I didn't really understand
-variable scoping, or why you would ever want to create a
-function that wasn't an entry point to your program. I'd be
-willing to bet that I have more experience being a naive
-programmer than anyone else in this room.
-
-For those ten years, I was programming without any thought
-of imposing style on my programs. I judged code by one
-metric: did it work? If it works, it's good.
-
----
-
-???
-
-So, wouldn't you like to see some of that code? Well,
-unfortunately, I don't have any of it. I wrote it all on my
-dad's Windows box, which he sold or gave away when I was in
-high school, and since then I haven't bothered to acquire a
-computer capable of running those programs, and I have no
-idea if any copies of them even still exist.
-
-But it's not too hard to imagine how you'd program
-this way. You can do it in basically any imperative
-language. You just have to follow one simple rule:
-
-- Do not create any functions, except as absolutely
-  necessary to create entry points to your program (e.g. for
-  click event handlers)
-
----
-
-class: center, middle
-
 ## _&ldquo;Duplication is far cheaper than the wrong abstraction.&rdquo;_
 
 <cite>Sandi Metz</cite>
 
 ???
 
-Programming this way has many downsides and I'm definitely
-not advocating that you do this seriously. But if you write
-programs this way, you avoid a particular type of mistake,
-which is creating the wrong abstractions.
-
-But this quote kind of implies that duplication and
-abstraction are opposites. They're not. You can eliminate
-some types of duplication without creating any new
-abstractions.
+Elsewhere, Sandi Metz has written about this, that it's
+better to leave some duplication in the code than to
+shoehorn in an abstraction that is likely going to be hard
+to undo or work around later. That's why we defer creating
+abstractions until we have all the information we're likely
+to get about a feature.
 
 ---
 
-## Duplication and abstraction are not opposites
+class: center, middle
+
+## begun well != finished well
+
+???
+
+Of course, beginning well is not enough. You don't want to
+ship code that hasn't been refactored. But the generative
+rules will take care of that.
 
 ---
 
@@ -1310,42 +1359,70 @@ highly constrained set of forms.
 
 class: center, middle
 
-### _&ldquo;I personally thought that maybe there was no good solution to this problem.&rdquo;_
+## Act Five:
 
-#### —Katrina Owen
+## The Timeless Way of Programming
 
 ???
 
-Source: https://whyarecomputers.com/3
+So far we've talked about the failures of our existing
+methods for designing code and possible solutions involving
+generative rules.
+
+An important question remains, though: what is the actual
+experience of working in a codebase shaped by these
+generative rules? What does the code look like? How does it
+feel to be there? In short, how do we know that this is
+something we actually want to pursue?
+
+In this final section, I hope I can give you a glimpse of
+what it might be like to work on software whose design has
+unfolded from generative rules. I also hope that you find
+this vision exciting enough that you read _99 Bottles of
+OOP_ or perhaps Christopher Alexander's books, because they
+go into far more detail about these topics than I've been
+able to cover here.
+
+This section is not about my opinions on how to structure
+code. It's simply my observations of how code *is
+structured* when you apply the generative principles from
+_99 Bottles of OOP_.
 
 ---
 
-Simplicity, as Alexander defines it, is the absence of
-arbitrary distinctions, and therefore the opposite of style.
-
----
-
-## Act Five: The Timeless Way of Programming
-
----
-
-> In our time, many of us have been taught to strive for an insane perfection that means nothing. To get wholeness, you must try instead to strive for this kind of perfection, where things that don’t matter are left rough and unimportant, and the things that really matter are given deep attention. This is a perfection that seems imperfect. But it is a far deeper thing.
-
-<cite>Christopher Alexander</cite>
-
----
-
-## shallow hierarchies
-
----
+class: center, middle, dark
 
 ## symmetry
 
 ---
 
-## multiple paradigms
+class: middle, dark
+
+.float-left.too-tall[
+  ![the interior of the great hall of the Eishin campus, showing a hanging light fixture and the quality of the light](great-hall-light.jpg)
+]
+
+.smaller-font[
+> Complexity (in the bad sense) consists of distinc&shy;tions which unnecessarily complicate a structure. To get simplicity, on the other hand, we need a process which questions every distinction. Any distinction which is not necessary is removed. To remove a distinction we replace it by a symmetry.
+]
 
 ---
+
+class: middle, dark
+
+.float-left.too-tall[
+  ![the interior of the great hall of the Eishin campus, showing a hanging light fixture and the quality of the light](great-hall-light.jpg)
+]
+
+.smaller-font[
+  > There is an intimate and fundamental connection between arbitrariness, necessity, and symmetry, which says, in a nutshell, this. Everything in nature is symmetrical unless there is a reason for it not to be. When this law is violated, we feel that something is unnatural, and that is the way in which symmetry plays such a fundamental role.
+
+  <cite>Christopher Alexander</cite>
+]
+
+---
+
+class: middle
 
 ```ruby
 download_class =
@@ -1356,16 +1433,294 @@ download_class =
     HttpsDownload
   when "sftp"
     SftpDownload
+  else
+    raise NoSuitableClass, "No class for #{uri}"
   end
 ```
 
+???
+
+Symmetry in code is a concept that I grasp intuitively so
+I have a hard time explaining what exactly it is. As best
+I can describe it, symmetry is repetition without
+duplication. Symmetric code has a rhythm, a consistent
+repeating structure.
+
+We often see symmetry and asymmetry in conditionals. Nested
+conditionals, or conditionals that use multiple syntaxes
+(ternary, switch, if, short-circuiting assignment) are
+asymmetrical.
+
 ---
 
-## shallow mess
+class: middle
+
+```ruby
+if uri.scheme == "ssh"
+  download_class = GitDownload
+elsif uri.to_s.start_with? "https"
+  download_class = HttpsDownload
+end
+
+download_class ||= SftpDownload if uri.scheme == "sftp"
+
+raise NoSuitableClass, "No class for #{uri}" unless download_class
+```
+
+???
+
+Here's a contrived example of the same logic written in an
+asymmetric way. Looks crazy, but I've worked with code not
+too different from this.
 
 ---
 
-> When I'm working on a problem, I never think about beauty. I think only how to solve the problem. But when I have finished, if the solution is not beautiful, I know it is wrong.
+class: middle
+
+```ruby
+s.change 'wō', 'wā', '_$' # Salo 4.15
+s.change 'ā', 'ē', 't[wm]_$' # Salo 4.16
+s.change 'āu', 'ā', '_' # Salo 4.17
+s.change 'j', 'i', 'V\+_' # Salo 4.20
+s.change 'V', '', '_\+V' # Salo 4.19
+s.change '(CC?)V\1', haplology, 'V_V' # Salo 4.21
+s.change 'ñkw', 'mp', '_' # Salo 4.23
+s.change 'kw', 'p', '_' # Salo 4.23
+s.change 'ñgw', 'mb', '_' # Salo 4.23
+```
+
+???
+
+Here's a fragment of a program I wrote that has imperfect
+symmetry. The string values look like gibberish because
+this is simulating the evolution of the sounds of a language
+over time. But the pattern of repeated method calls is a
+kind of symmetry. Note that there's still duplication here
+which could be DRYed out if I applied the flocking rules.
+
+Still, the symmetry makes this program very easy to change.
+I can add a new sound-change rule by just duplicating one
+of the lines and changing the values.
+
+And that brings me to the next property of code:
+
+---
+
+class: center, middle, dark
+
+## roughness
+
+---
+
+class: dark, middle
+
+.small.center[
+  ![wall of the House of Tiles in Mexico City](house-of-tiles.jpg)
+]
+
+> In our time, many of us have been taught to strive for an
+> insane perfection that means nothing. To get wholeness,
+> you must try instead to strive for this kind of
+> perfection, where things that don’t matter are left rough
+> and unimportant, and the things that really matter are
+> given deep attention. This is a perfection that seems
+> imperfect. But it is a far deeper thing.
+
+<cite>Christopher Alexander</cite>
+
+---
+
+class: middle
+
+```ruby
+s.change 'wō', 'wā', '_$' # Salo 4.15
+s.change 'ā', 'ē', 't[wm]_$' # Salo 4.16
+s.change 'āu', 'ā', '_' # Salo 4.17
+s.change 'j', 'i', 'V\+_' # Salo 4.20
+s.change 'V', '', '_\+V' # Salo 4.19
+s.change '(CC?)V\1', haplology, 'V_V' # Salo 4.21
+s.change 'ñkw', 'mp', '_' # Salo 4.23
+s.change 'kw', 'p', '_' # Salo 4.23
+s.change 'ñgw', 'mb', '_' # Salo 4.23
+```
+
+???
+
+Could this code be prettier? Yes. Absolutely.
+
+---
+
+class: middle
+
+```ruby
+s.change 'wō',       'wā', '_$'       # Salo 4.15
+s.change 'ā',        'ē',  't[wm]_$'  # Salo 4.16
+s.change 'āu',       'ā',  '_'        # Salo 4.17
+s.change 'j',        'i',  'V\+_'     # Salo 4.20
+s.change 'V',        '',   '_\+V'     # Salo 4.19
+s.change '(CC?)V\1', haplology, 'V_V' # Salo 4.21
+s.change 'ñkw',      'mp', '_'        # Salo 4.23
+s.change 'kw',       'p',  '_'        # Salo 4.23
+s.change 'ñgw',      'mb', '_'        # Salo 4.23
+```
+
+???
+
+I could make the spacing more regular. That's very pretty.
+But it's actually not easier to read. If I'm reading this
+code, looking for something specific or trying to understand
+it, this aligned spacing doesn't really help me. It's only
+when I'm glancing at the whole thing that I see this surface
+prettiness. Plus, the alignment is going to take
+effort to maintain as I add more lines.
+
+I certainly don't want to imply that whitespace doesn't
+matter. In many cases rearranging whitespace is a very
+cost-effective way to make code more readable. But in this
+case, I don't think it is.
+
+---
+
+class: middle
+
+```ruby
+s.change 'wō', 'wā', '_$'             # Salo 4.15
+s.change 'ā', 'ē', 't[wm]_$'          # Salo 4.16
+s.change 'āu', 'ā', '_'               # Salo 4.17
+s.change 'j', 'i', 'V\+_'             # Salo 4.20
+s.change 'V', '', '_\+V'              # Salo 4.19
+s.change '(CC?)V\1', haplology, 'V_V' # Salo 4.21
+s.change 'ñkw', 'mp', '_'             # Salo 4.23
+s.change 'kw', 'p', '_'               # Salo 4.23
+s.change 'ñgw', 'mb', '_'             # Salo 4.23
+```
+
+???
+
+The one part of this that I might actually keep is the
+alignment of the comments, so I can easily cross-reference
+with the linguistics book I was basing this code on.
+
+I think this is a good compromise.
+
+---
+
+class: center, middle, dark
+
+## a &ldquo;shallow mess&rdquo;
+
+???
+
+The way I see this applying to code is, we might end up with
+code that's a little bit messy. But it's messy in a very
+specific way that makes it easy to clean up when and where
+we need to. I call this a shallow mess.
+
+A few days ago I was in my kitchen with some
+friends, making lunch. They were standing around making and
+drinking tea. And I suddenly had the strange awareness that,
+while the kitchen was pretty messy, with pots and pans left
+out and boxes of tea out on the counter, it was working
+smoothly. We were all gliding past each other as we walked
+around and went about our various tasks. The mess, for
+whatever reason, didn't seem to be in our way.
+
+I think the reason is, this mess was shallow. If we needed
+to clean something up or put something away, that was a
+simple, one-step process.
+
+---
+
+class: center, middle, dark
+
+## shallow hierarchies
+
+???
+
+One side effect of using the flocking rules is that you
+don't end up with unnecessary indirection. Often, it's
+possible to DRY up duplicated code without adding any new
+methods or classes. The results are counterintuitive to
+many people, but when you follow the flocking rules, they
+are generated, effortlessly.
+
+This means the methods at the top of your call stack are
+somewhat longer than is currently in vogue, but they're
+very direct: it's easy to see what the code is doing, and
+you don't have to go digging through a lot of layers to
+find the piece you need to change or debug.
+
+---
+
+class: center, middle, dark
+
+## multiple paradigms
+
+???
+
+If we're programming without preconceptions of style,
+there's little reason to commit to a paradigm
+(e.g. object-oriented, procedural, or functional) up front.
+
+Instead, we're free to use whatever paradigm makes sense
+for the problem at hand.
+
+I've written a fair amount of multiparadigm code on my own
+personal projects, as well as some at work. Many languages
+(Java, Golang, Kotlin, JavaScript, Ruby, Rust) now embrace
+multiple paradigms.
+
+Simply due to the nature of these paradigms and what each
+one is good at, I predict that we'll see designs with
+layers, where the top layer of the call graph is procedural,
+then we have stateful objects in the middle layer, and at
+the bottom, a rock-solid layer of stateless, pure functions.
+The lower-down you go in the layering, the more
+Most of the business logic of programs will be concentrated
+in the upper layers, with perhaps a few custom
+data-transformation functions written for each program.
+
+---
+
+class: center, middle, dark
+
+## truth to materials
+
+---
+
+class: center, middle, dark
+
+## pair programming
+
+???
+
+Finally, I just want to touch on what the feeling of working
+in this type of codebase would be like. Above all I think
+the experience of pairing would be very different. Often
+when I'm pairing my partner and I have conflicting design
+ideas and we either have to try first one and then the other
+or argue for a long time before we pick one. With generative
+rules for refactoring, we can choose small problems to fix
+in the code, and address them very quickly.
+
+As I touched on earlier, we develop an intuition for when
+something's not right with a situation before we are able
+to respond intuitively or even reason out a solution. The
+Dreyfus model describes this and my experience matches it.
+This means that even junior developers will be able to
+participate effectively in refactoring with generative
+rules, because they can spot problems, often quicker than
+more senior programmers can.
+
+My hope is that these factors will result in both people
+feeling heard and feeling like they are making valuable
+contributions to the pairing session.
+
+---
+
+class: middle, dark
+
+> When I&rsquo;m working on a problem, I never think about beauty. I think only how to solve the problem. But when I have finished, if the solution is not beautiful, I know it is wrong.
 
 <cite>R. Buckminster Fuller</cite>
 
