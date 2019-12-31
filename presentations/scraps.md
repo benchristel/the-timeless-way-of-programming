@@ -1,3 +1,9 @@
+Software design was the thing that had
+rescued me from the benighted maze of procedures and for
+loops that passed for code in high school and college. I
+worshipped gurus like Gary Bernhardt and Sandi Metz. I
+wanted to write code like them.
+
 
 class: center, middle
 
